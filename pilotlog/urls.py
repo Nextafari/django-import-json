@@ -3,13 +3,10 @@ from rest_framework.routers import DefaultRouter
 
 from pilotlog import views
 
-
 router = DefaultRouter()
-router.register(
-    'aircraft', views.AirCraftViewSet, 'aircraft_data'
-)
+router.register("aircraft", views.AirCraftViewSet, "aircraft_data")
 
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]

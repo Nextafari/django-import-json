@@ -19,34 +19,35 @@ class AirCraftViewSet(ViewSet):
 
         return Response(
             {
-                'status': 'success',
-                'message': 'Statistics retrieved!!!',
-                'data': aircrafts_stats
+                "status": "success",
+                "message": "Statistics retrieved!!!",
+                "data": aircrafts_stats,
             },
-            status=status.HTTP_200_OK
+            status=status.HTTP_200_OK,
         )
 
-    @action(detail=False)
-    def dynamic_view(self, request):
-        """Return Aircraft data dyanimcally based on fields specified by 
+    def list(self, request):
+        """Return Aircraft data dyanimcally based on fields specified by
         client or default specified fields in views
         """
 
         # comma separate params of fields the client wants returned.
-        client_fields = request.query_params.get('fields')
-        client_fields = client_fields.split(',') \
-            if client_fields is not None \
-            else ('id', 'created', 'meta')
+        client_fields = request.query_params.get("fields")
+        client_fields = (
+            client_fields.split(",")
+            if client_fields is not None
+            else ("id", "created", "meta")
+        )
 
         serializer = DynamicFieldSerializer(
-                        self.queryset, many=True,
-                        fields=('id', 'created', 'meta'))
+            self.queryset, many=True, fields=("id", "created", "meta")
+        )
 
         return Response(
             {
-                'status': 'success',
-                'message': 'Dynamic aircraft serializer retrieved.',
-                'data': serializer.data
+                "status": "success",
+                "message": "Dynamic aircraft serializer retrieved.",
+                "data": serializer.data,
             },
-            status=status.HTTP_200_OK
+            status=status.HTTP_200_OK,
         )

@@ -11,10 +11,10 @@ class DynamicFieldSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Aircraft
-        fields = '__all__'
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
-        fields = kwargs.pop('fields')
+        fields = kwargs.pop("fields")
 
         super().__init__(*args, **kwargs)
 

@@ -27,51 +27,52 @@ classifiers = [
 
 dependencies = [
     "Django>=4.2,<5.2",
-    "djangorestframework>=3.12",
-    sqlite3={version = "*", optional = true}
+    "djangorestframework>=3.15.2",
+    "pre-commit>=3.8.0"
 ]
+
+requires-python = ">=3.9"
+
+urls = { homepage = "http://127.0.0.1:8000/pilotlog/" }
 
 [tool.setuptools]
 packages = ["apexive"]
 
-
-requires-python = ">=3.9"
-urls = { homepage = "http://127.0.0.1:8000/pilotlog/" }
-
 [tool.black]
 line-length = 88
-target-version = ["py37", "py38", "py39", "py310", "py311"]
 
-exclude = [
-    ".bzr",
-    ".direnv",
-    ".eggs",
-    ".git",
-    ".hg",
-    ".mypy_cache",
-    ".nox",
-    ".pants.d",
-    ".ruff_cache",
-    ".svn",
-    ".tox",
-    ".venv",
-    "__pypackages__",
-    "_build",
-    "buck-out",
-    "build",
-    "dist",
-    "node_modules",
-    "venv",
-    "static",
-    "migrations",
-    "__pycache__",
-    ".pytest_cache",
-    "__init__.py",
-    "*.log",
-    "local_settings.py",
-    "db.sqlite3",
-    "db.sqlite3-journal"
-]
+exclude = '''
+/(
+    .bzr
+  | .direnv
+  | .eggs
+  | .git
+  | .hg
+  | .mypy_cache
+  | .nox
+  | .pants.d
+  | .ruff_cache
+  | .svn
+  | .tox
+  | .venv
+  | __pypackages__
+  | _build
+  | buck-out
+  | build
+  | dist
+  | node_modules
+  | venv
+  | static
+  | migrations
+  | __pycache__
+  | .pytest_cache
+  | __init__.py
+  | *.log
+  | local_settings.py
+  | db.sqlite3
+  | db.sqlite3-journal
+)/
+'''
 
 [tool.isort]
 profile = "black"
@@ -79,18 +80,3 @@ profile = "black"
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "apexive.settings"
 python_files = ["test_*.py", "*_tests.py"]
-
-[tool.pre-commit]
-repos = [
-    { repo = "https://github.com/pre-commit/pre-commit-hooks", rev = "v4.0.1", hooks = [
-        { id = "trailing-whitespace" },
-        { id = "end-of-file-fixer" },
-        { id = "check-yaml" }
-    ]},
-    { repo = "https://github.com/psf/black", rev = "23.3.0", hooks = [
-        { id = "black" }
-    ]},
-    { repo = "https://github.com/pre-commit/mirrors-isort", rev = "v5.10.1", hooks = [
-        { id = "isort" }
-    ]}
-]
