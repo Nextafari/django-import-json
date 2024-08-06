@@ -89,3 +89,4 @@ class TestParseJSONFile(APITestCase):
 
         self.assertEqual(list, type(parsed_data))
         self.assertEqual(dict, type(parsed_data[0]))
+        self.assertEqual(int, type(len(parsed_data)))
