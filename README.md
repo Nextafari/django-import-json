@@ -60,6 +60,8 @@ Start the Django development server:
 python3 manage.py runserver
 ```
 
+----
+
 #### Importer Module
 
 To import data from the JSON file Data/import - pilotlog_mcc.json, use the Django management command:
@@ -67,6 +69,8 @@ To import data from the JSON file Data/import - pilotlog_mcc.json, use the Djang
 ```bash
 python3 manage.py import_data
 ```
+
+----
 
 #### Exporter Module
 
