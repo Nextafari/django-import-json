@@ -79,3 +79,18 @@ profile = "black"
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "apexive.settings"
 python_files = ["test_*.py", "*_tests.py"]
+
+[tool.pre-commit]
+repos = [
+    { repo = "https://github.com/pre-commit/pre-commit-hooks", rev = "v4.0.1", hooks = [
+        { id = "trailing-whitespace" },
+        { id = "end-of-file-fixer" },
+        { id = "check-yaml" }
+    ]},
+    { repo = "https://github.com/psf/black", rev = "23.3.0", hooks = [
+        { id = "black" }
+    ]},
+    { repo = "https://github.com/pre-commit/mirrors-isort", rev = "v5.10.1", hooks = [
+        { id = "isort" }
+    ]}
+]
