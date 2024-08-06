@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools>=68.1.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apexive"
+version = "1.0.0"
+description = "A Django project for importing json data and exporting CSV."
+authors = [
+    { name="Emmanuel Omeogah", email="chinedue16@gmail.com" }
+]
+readme = "README.md"
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 5.0",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+    "Django>=4.2,<5.2",
+    "djangorestframework>=3.12",
+    sqlite3={version = "*", optional = true}
+]
+
+[tool.setuptools]
+packages = ["apexive"]
+
+
+requires-python = ">=3.9"
+urls = { homepage = "http://127.0.0.1:8000/pilotlog/" }
+
+[tool.black]
+line-length = 88
+target-version = ["py37", "py38", "py39", "py310", "py311"]
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "static",
+    "migrations",
+    "__pycache__",
+    ".pytest_cache",
+    "__init__.py",
+    "*.log",
+    "local_settings.py",
+    "db.sqlite3",
+    "db.sqlite3-journal"
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "apexive.settings"
+python_files = ["test_*.py", "*_tests.py"]
