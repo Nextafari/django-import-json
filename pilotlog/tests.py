@@ -1,4 +1,4 @@
-import json
+from datetime import datetime
 
 from rest_framework.test import APITestCase
 
@@ -14,30 +14,30 @@ class AirCraftTestCases(APITestCase):
             "guid": "00000000-0000-0000-0000-000000000367",
             "meta": {
                 "Fin": "",
-                "Sea": false,
-                "TMG": false,
-                "Efis": false,
+                "Sea": False,
+                "TMG": False,
+                "Efis": False,
                 "FNPT": 0,
                 "Make": "Cessna",
-                "Run2": false,
+                "Run2": False,
                 "Class": 5,
                 "Model": "C150",
                 "Power": 1,
                 "Seats": 0,
-                "Active": true,
-                "Kg5700": false,
+                "Active": True,
+                "Kg5700": False,
                 "Rating": "",
                 "Company": "Other",
-                "Complex": false,
+                "Complex": False,
                 "CondLog": 69,
-                "FavList": false,
+                "FavList": False,
                 "Category": 1,
-                "HighPerf": false,
+                "HighPerf": False,
                 "SubModel": "",
-                "Aerobatic": false,
+                "Aerobatic": False,
                 "RefSearch": "PHALI",
                 "Reference": "PH-ALI",
-                "Tailwheel": false,
+                "Tailwheel": False,
                 "DefaultApp": 0,
                 "DefaultLog": 2,
                 "DefaultOps": 0,
@@ -49,10 +49,11 @@ class AirCraftTestCases(APITestCase):
             "platform": 10,
             "_modified": 1616320991,
         }
+        aircraft_data["_modified"] = datetime.fromtimestamp(aircraft_data["_modified"])
         self.aircraft = Aircraft.objects.create(**aircraft_data)
 
     def test_dynamic_view(self):
-        params = "?fields=id,guid,create,_modified"
+        params = "?fields=id,guid,created,_modified"
         url = f"/pilotlog/aircraft/{params}"
         response = self.client.get(url, format="json")
         self.assertEqual(response.status_code, 200)
@@ -61,13 +62,13 @@ class AirCraftTestCases(APITestCase):
         self.assertEqual(len(response.json()), 3)
 
         # Confirm fields requested were returned.
-        self.assertIn("id", response.json()["data"])
-        self.assertIn("guid", response.json()["data"])
-        self.assertIn("create", response.json()["data"])
-        self.assertIn("_modified", response.json()["data"])
+        self.assertIn("id", response.json()["data"][0])
+        self.assertIn("guid", response.json()["data"][0])
+        self.assertIn("created", response.json()["data"][0])
+        self.assertIn("_modified", response.json()["data"][0])
 
     def test_aircraft_stats(self):
-        url = "/pilotlog/aircraft/stats"
+        url = "/pilotlog/aircraft/stats/"
         response = self.client.get(url, format="json")
 
         self.assertEqual(response.status_code, 200)
@@ -76,8 +77,8 @@ class AirCraftTestCases(APITestCase):
         self.assertEqual(len(response.json()), 3)
 
         # Confirm fields requested were returned.
-        self.assertEqual(list, response.json()["data"])
-        self.assertIn("meta__model", response.json()["data"][0])
+        self.assertEqual(list, type(response.json()["data"]))
+        self.assertIn("meta__Model", response.json()["data"][0])
         self.assertIn("date", response.json()["data"][0])
         self.assertIn("no_of_model", response.json()["data"][0])
 
@@ -86,6 +87,5 @@ class TestParseJSONFile(APITestCase):
     def test_connect_account_error(self):
         parsed_data = parse_json_file()
 
-        self.assertEqual(parsed_data, json)
-        self.assertEqual(parsed_data, list)
-        self.assertEqual(parsed_data[0], dict)
+        self.assertEqual(list, type(parsed_data))
+        self.assertEqual(dict, type(parsed_data[0]))

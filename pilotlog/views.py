@@ -30,7 +30,6 @@ class AirCraftViewSet(ViewSet):
         """Return Aircraft data dyanimcally based on fields specified by
         client or default specified fields in views
         """
-
         # comma separate params of fields the client wants returned.
         client_fields = request.query_params.get("fields")
         client_fields = (
@@ -40,7 +39,7 @@ class AirCraftViewSet(ViewSet):
         )
 
         serializer = DynamicFieldSerializer(
-            self.queryset, many=True, fields=("id", "created", "meta")
+            self.queryset, many=True, fields=client_fields
         )
 
         return Response(
